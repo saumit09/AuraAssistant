@@ -30,15 +30,15 @@ class AuraVoiceInteractionSession(context: Context) : VoiceInteractionSession(co
         super.onCreate()
         setTheme(R.style.Theme_AuraAssistant_Transparent)
 
-        val window = window ?: return
-        window.setFlags(
+        val dialogWindow = window?.window
+        dialogWindow?.setFlags(
             WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
                     WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
             WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
                     WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
         )
-        window.setGravity(Gravity.BOTTOM)
-        window.setBackgroundDrawableResource(android.R.color.transparent)
+        dialogWindow?.setGravity(Gravity.BOTTOM)
+        dialogWindow?.setBackgroundDrawableResource(android.R.color.transparent)
 
         pipelineManager = VoicePipelineManager(
             context = context,
