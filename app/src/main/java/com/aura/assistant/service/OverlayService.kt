@@ -2,12 +2,14 @@ package com.aura.assistant.service
 
 import android.app.Notification
 import android.app.PendingIntent
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.Bundle
+import android.os.IBinder
 import android.view.Gravity
 import android.view.WindowManager
 import androidx.compose.runtime.collectAsState
@@ -18,7 +20,6 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.setViewTreeLifecycleOwner
@@ -40,14 +41,14 @@ import com.aura.assistant.voice.VoicePipelineManager
  * Runs as a foreground service with microphone type so background voice recognition
  * complies with Android 14+ background execution restrictions.
  */
-class OverlayService : LifecycleService(), SavedStateRegistryOwner, ViewModelStoreOwner {
+class OverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner, ViewModelStoreOwner {
 
+    private val lifecycleRegistry = LifecycleRegistry(this)
     private val savedStateRegistryController = SavedStateRegistryController.create(this)
     private val appViewModelStore = ViewModelStore()
 
-    private var windowManager: WindowManager? = null
-    private var composeView: ComposeView? = null
-    private var pipelineManager: VoicePipelineManager? = null
+    override val lifecycle: Lifecycle
+        get() = lifecycleRegistry
 
     override val savedStateRegistry: SavedStateRegistry
         get() = savedStateRegistryController.savedStateRegistry
@@ -55,9 +56,18 @@ class OverlayService : LifecycleService(), SavedStateRegistryOwner, ViewModelSto
     override val viewModelStore: ViewModelStore
         get() = appViewModelStore
 
+    private var windowManager: WindowManager? = null
+    private var composeView: ComposeView? = null
+    private var pipelineManager: VoicePipelineManager? = null
+
+    override fun onBind(intent: Intent?): IBinder? = null
+
     override fun onCreate() {
         super.onCreate()
         savedStateRegistryController.performRestore(Bundle())
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
 
         startForegroundServiceNotification()
         showOverlay()
@@ -141,6 +151,10 @@ class OverlayService : LifecycleService(), SavedStateRegistryOwner, ViewModelSto
     }
 
     override fun onDestroy() {
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+
         pipelineManager?.destroy()
         pipelineManager = null
 
