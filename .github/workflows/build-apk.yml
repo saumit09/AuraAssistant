@@ -1,0 +1,67 @@
+name: Build & Release APK
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Debug APK & Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Prepare APK Release Binary
+        run: |
+          mkdir -p release-apk
+          cp app/build/outputs/apk/debug/app-debug.apk release-apk/AuraAssistant-latest.apk
+
+      - name: Upload Debug APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AuraAssistant-latest.apk
+          path: release-apk/AuraAssistant-latest.apk
+
+      - name: Publish GitHub Release (latest)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: "Aura Assistant (Latest Release)"
+          body: |
+            ## 🌟 Aura Assistant - Native Samsung One UI Assistant
+
+            Download the standalone APK directly onto your Android device:
+            👉 **[Download AuraAssistant-latest.apk](https://github.com/saumit09/AuraAssistant/releases/latest/download/AuraAssistant-latest.apk)**
+
+            ### System Features:
+            - **VoiceInteractionService**: System-wide default assistant binding.
+            - **Siri-Style Compose Overlay**: Frosted-glass bottom pill with dynamic multi-wave sine visualizer and aurora border.
+            - **Streaming STT & TTS**: Zero-latency word-by-word streaming transcriptions.
+            - **Gemini Function Calling**: Natural language parsing to phone actions (calls, apps, WhatsApp, alarms, flashlight).
+            - **Aura Accessibility Service**: Hands-free WhatsApp auto-send and screen interaction.
+          files: release-apk/AuraAssistant-latest.apk
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

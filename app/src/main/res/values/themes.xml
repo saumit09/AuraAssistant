@@ -1,0 +1,19 @@
+<resources>
+    <!-- Base application theme -->
+    <style name="Theme.AuraAssistant" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/aura_background</item>
+        <item name="android:navigationBarColor">@color/aura_background</item>
+        <item name="android:windowBackground">@color/aura_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- Translucent Overlay Theme for Session and Floating Popups -->
+    <style name="Theme.AuraAssistant.Transparent" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+</resources>

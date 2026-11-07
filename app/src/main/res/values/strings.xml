@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Aura Assistant</string>
+    <string name="accessibility_service_description">Aura Assistant Accessibility Service enables automated task execution, such as sending WhatsApp messages and screen interactions on Samsung One UI.</string>
+    <string name="voice_interaction_service_description">Aura Assistant voice interaction service for system-wide digital assistant integration.</string>
+</resources>
