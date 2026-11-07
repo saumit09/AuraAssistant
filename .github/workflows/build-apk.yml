@@ -44,16 +44,16 @@ jobs:
           name: AuraAssistant-latest.apk
           path: release-apk/AuraAssistant-latest.apk
 
-      - name: Publish GitHub Release (latest)
+      - name: Publish GitHub Release (v1.0.0)
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: latest
-          name: "Aura Assistant (Latest Release)"
+          tag_name: v1.0.0
+          name: "Aura Assistant v1.0.0 (Latest Release)"
           body: |
             ## 🌟 Aura Assistant - Native Samsung One UI Assistant
 
             Download the standalone APK directly onto your Android device:
-            👉 **[Download AuraAssistant-latest.apk](https://github.com/saumit09/AuraAssistant/releases/latest/download/AuraAssistant-latest.apk)**
+            👉 **[Download AuraAssistant-latest.apk](https://github.com/saumit09/AuraAssistant/releases/download/v1.0.0/AuraAssistant-latest.apk)**
 
             ### System Features:
             - **VoiceInteractionService**: System-wide default assistant binding.

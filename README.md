@@ -1,6 +1,6 @@
 # Aura Assistant 🌌
 
-[![Download APK](https://img.shields.io/badge/Download_APK-Direct_Download-00F5FF?style=for-the-badge&logo=android&logoColor=black)](https://github.com/saumit09/AuraAssistant/releases/latest/download/AuraAssistant-latest.apk)
+[![Download APK](https://img.shields.io/badge/Download_APK-Direct_Download-00F5FF?style=for-the-badge&logo=android&logoColor=black)](https://github.com/saumit09/AuraAssistant/releases/download/v1.0.0/AuraAssistant-latest.apk)
 [![Latest Release](https://img.shields.io/github/v/release/saumit09/AuraAssistant?style=for-the-badge&color=8A2BE2)](https://github.com/saumit09/AuraAssistant/releases/latest)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/saumit09/AuraAssistant/build-apk.yml?branch=main&style=for-the-badge)](https://github.com/saumit09/AuraAssistant/actions)
 [![Target SDK](https://img.shields.io/badge/Target_SDK-35_(Android_15)-3A86FF?style=for-the-badge&logo=android)](https://developer.android.com)
@@ -13,7 +13,8 @@
 
 Click below directly from your Samsung phone browser to download and install the latest compiled release:
 
-👉 **[Download AuraAssistant-latest.apk](https://github.com/saumit09/AuraAssistant/releases/latest/download/AuraAssistant-latest.apk)**
+👉 **[Download AuraAssistant-latest.apk (v1.0.0)](https://github.com/saumit09/AuraAssistant/releases/download/v1.0.0/AuraAssistant-latest.apk)**  
+*(Alternative mirror: [Latest release download](https://github.com/saumit09/AuraAssistant/releases/latest/download/AuraAssistant-latest.apk))*
 
 ---
 
